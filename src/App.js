@@ -26,6 +26,16 @@ class BooksApp extends Component {
     ]
   }
 
+  getPersistedBooks = (list) => {
+    const categories = this.state.categories
+    const persistedBooks = categories.map(category => {
+      const filteredList = list.filter((book) => book.shelf === category.id)
+      category.list = category.list.concat(filteredList)
+      return category
+    })
+    this.setState({categories: persistedBooks})
+  }
+
   handleCategoryChange = (book, currentCategory, newCategory) => {
     const categories = this.state.categories
     const newCategories = categories.map(category => {
@@ -38,6 +48,13 @@ class BooksApp extends Component {
     })
 
     this.setState({categories: newCategories})
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((result) => {
+      console.log(result)
+      this.getPersistedBooks(result)
+    });
   }
 
   render() {
