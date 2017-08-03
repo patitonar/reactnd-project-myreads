@@ -12,16 +12,15 @@ export default class Category extends Component {
             <h2 className="bookshelf-title">{name}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                <li>
                   {list.map((book) => (
-                    <Book
-                      key={book.id}
-                      book={book}
-                      handleCategoryChange={handleCategoryChange}
-                      category={id}
-                    />
+                    <li key={book.id}>
+                      <Book
+                        book={book}
+                        handleCategoryChange={handleCategoryChange}
+                        category={id}
+                      />
+                    </li>
                   ))}
-                </li>
               </ol>
             </div>
           </div>
