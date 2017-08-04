@@ -36,12 +36,12 @@ class BooksApp extends Component {
     this.setState({categories: persistedBooks})
   }
 
-  handleCategoryChange = (book, currentCategory, newCategory) => {
+  handleCategoryChange = (book, newCategory) => {
     const categories = this.state.categories
+    book.shelf = newCategory
     const newCategories = categories.map(category => {
-      if(category.id === currentCategory) {
-        category.list = category.list.filter((b)=> b.id !== book.id)
-      } else if(category.id === newCategory) {
+        category.list = category.list.filter((b)=> b.shelf === category.id)
+      if(category.id === newCategory) {
         category.list = category.list.concat([book])
       }
       return category
@@ -52,7 +52,6 @@ class BooksApp extends Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((result) => {
-      console.log(result)
       this.getPersistedBooks(result)
     });
   }
@@ -64,7 +63,7 @@ class BooksApp extends Component {
           <MyReads handleCategoryChange={this.handleCategoryChange} {...this.state}/>
         )}/>
         <Route exact path='/search' render={() => (
-          <Search/>
+          <Search handleCategoryChange={this.handleCategoryChange}/>
         )}/>
       </div>
     )

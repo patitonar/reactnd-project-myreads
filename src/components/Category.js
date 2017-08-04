@@ -4,7 +4,7 @@ import Book from "./Book";
 export default class Category extends Component {
 
   render() {
-    const { id, name, list, handleCategoryChange } = this.props
+    const { name, list, handleCategoryChange } = this.props
     return (
       <div className="list-books-content">
         <div>
@@ -13,13 +13,11 @@ export default class Category extends Component {
             <div className="bookshelf-books">
               <ol className="books-grid">
                   {list.map((book) => (
-                    <li key={book.id}>
                       <Book
+                        key={book.id}
                         book={book}
                         handleCategoryChange={handleCategoryChange}
-                        category={id}
                       />
-                    </li>
                   ))}
               </ol>
             </div>
