@@ -39,19 +39,23 @@ class BooksApp extends Component {
   handleCategoryChange = (book, newCategory) => {
     const categories = this.state.categories
     book.shelf = newCategory
-    const newCategories = categories.map(category => {
+    BooksAPI.update(book, newCategory).then((response) => {
+      console.log(response)
+      const newCategories = categories.map(category => {
         category.list = category.list.filter((b)=> b.shelf === category.id)
-      if(category.id === newCategory) {
-        category.list = category.list.concat([book])
-      }
-      return category
-    })
+        if(category.id === newCategory) {
+          category.list = category.list.concat([book])
+        }
+        return category
+      })
 
-    this.setState({categories: newCategories})
+      this.setState({categories: newCategories})
+    })
   }
 
   componentDidMount() {
     BooksAPI.getAll().then((result) => {
+      console.log(result)
       this.getPersistedBooks(result)
     });
   }

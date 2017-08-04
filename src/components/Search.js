@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import * as BooksAPI from '../BooksAPI'
+import { search } from '../BooksAPI'
 import { Link } from 'react-router-dom'
 import Book from "./Book";
 
@@ -11,13 +11,15 @@ export default class Search extends Component {
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+    this.setState({ query: query.trimRight() })
 
     if (query) {
-      BooksAPI.search(query, 20).then((result) => {
+      search(query, 20).then((result) => {
         console.log(result)
         this.setState({ listOfBooks: result})
-      });
+      })
+    } else {
+      this.setState({ listOfBooks: []})
     }
   }
 
