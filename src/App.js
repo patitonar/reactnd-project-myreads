@@ -4,23 +4,11 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import MyReads from './components/MyReads'
 import Search from './components/Search'
+import { shelves, NONE_VALUE } from './config'
 
 class BooksApp extends Component {
   state = {
-    shelves: [
-      {
-        id: 'currentlyReading',
-        name: 'Currently Reading'
-      },
-      {
-        id: 'wantToRead',
-        name: 'Want to Read'
-      },
-      {
-        id: 'read',
-        name: 'Read'
-      }
-    ],
+    shelves: shelves,
     listOfBooks: []
   }
 
@@ -29,7 +17,7 @@ class BooksApp extends Component {
     book.shelf = newShelf
     BooksAPI.update(book, newShelf).then(() => {
       const newListOfBooks = listOfBooks.filter(b => b.id !== book.id)
-      if (newShelf !== 'none') {
+      if (newShelf !== NONE_VALUE) {
         newListOfBooks.push(book)
       }
       this.setState({listOfBooks: newListOfBooks})

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { search } from '../BooksAPI'
 import { Link } from 'react-router-dom'
 import Book from "./Book";
+import { NONE_DISABLED } from '../config'
 
 export default class Search extends Component {
 
@@ -19,7 +20,7 @@ export default class Search extends Component {
           const currentQuery = this.state.query
           //  If current query on the input is different from the one that
           //  triggered the search, then another search was performed and
-          //  the state shouldn't be update with an older search result
+          //  the state shouldn't be updated with an older search result
           if(query === currentQuery) {
             const { listOfBooks } = this.props
             const list = result.map((book) => {
@@ -27,7 +28,7 @@ export default class Search extends Component {
               if(ArrayBook.length > 0) {
                 book.shelf = ArrayBook[0].shelf
               } else {
-                book.shelf = 'noneDisabled'
+                book.shelf = NONE_DISABLED
               }
               return book
             })

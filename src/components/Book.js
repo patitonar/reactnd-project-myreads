@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { bookOptions, NONE_DISABLED, NONE_VALUE } from '../config'
 
 export default class Book extends Component {
 
@@ -8,7 +9,7 @@ export default class Book extends Component {
 
   handleOnChange(book, newValue) {
     const { handleShelfChange } = this.props
-    const displayValue = newValue === 'none' ? 'noneDisabled' : newValue
+    const displayValue = newValue === NONE_VALUE ? NONE_DISABLED : newValue
 
     this.setState({selectValue: displayValue})
     handleShelfChange(book,newValue)
@@ -23,11 +24,12 @@ export default class Book extends Component {
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book && book.imageLinks && book.imageLinks.thumbnail}")` }}></div>
             <div className="book-shelf-changer">
               <select value={this.state.selectValue} onChange={(event) => this.handleOnChange(book,event.target.value)}>
-                <option value="noneDisabled" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
+                {bookOptions.map((opt,i)=> (
+                  <option
+                    key={i}
+                    value={opt.id}
+                    disabled={opt.id === NONE_DISABLED}>{opt.name}</option>
+                ))}
               </select>
             </div>
           </div>
