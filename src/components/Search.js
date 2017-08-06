@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { search } from '../BooksAPI'
 import { Link } from 'react-router-dom'
 import Book from "./Book";
 import { NONE_DISABLED } from '../config'
 
 export default class Search extends Component {
+
+  static propTypes = {
+    listOfBooks: PropTypes.array.isRequired,
+    handleShelfChange: PropTypes.func.isRequired
+  }
 
   state = {
     query: '',

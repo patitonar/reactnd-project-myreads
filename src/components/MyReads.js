@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Shelf from "./Shelf";
 
 export default class MyReads extends Component {
+
+  static propTypes = {
+    shelves: PropTypes.array.isRequired,
+    handleShelfChange: PropTypes.func.isRequired
+  }
 
   filterShelf = (shelfId) => {
     const { listOfBooks } = this.props

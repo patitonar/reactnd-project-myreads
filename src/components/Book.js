@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { bookOptions, NONE_DISABLED, NONE_VALUE } from '../config'
 
 export default class Book extends Component {
+
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    handleShelfChange: PropTypes.func.isRequired
+  }
 
   state = {
     selectValue: this.props.book.shelf
