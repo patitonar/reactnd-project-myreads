@@ -4,6 +4,11 @@ import Category from "./Category";
 
 export default class MyReads extends Component {
 
+  filterShelf = (shelfId) => {
+    const { listOfBooks } = this.props
+    return listOfBooks.filter(book => book.shelf === shelfId)
+  }
+
   render() {
     const { categories, handleCategoryChange } = this.props
 
@@ -16,6 +21,7 @@ export default class MyReads extends Component {
             <Category
               key={category.id}
               handleCategoryChange={handleCategoryChange}
+              list={this.filterShelf(category.id)}
               {...category}
             />
         ))}

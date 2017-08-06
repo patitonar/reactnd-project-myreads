@@ -10,31 +10,20 @@ class BooksApp extends Component {
     categories: [
       {
         id: 'currentlyReading',
-        name: 'Currently Reading',
-        list: []
+        name: 'Currently Reading'
       },
       {
         id: 'wantToRead',
-        name: 'Want to Read',
-        list: []
+        name: 'Want to Read'
       },
       {
         id: 'read',
-        name: 'Read',
-        list: []
+        name: 'Read'
       }
-    ]
+    ],
+    listOfBooks: []
   }
 
-  getPersistedBooks = (list) => {
-    const categories = this.state.categories
-    const persistedBooks = categories.map(category => {
-      const filteredList = list.filter((book) => book.shelf === category.id)
-      category.list = category.list.concat(filteredList)
-      return category
-    })
-    this.setState({categories: persistedBooks})
-  }
 
   handleCategoryChange = (book, newCategory) => {
     const categories = this.state.categories
@@ -53,10 +42,21 @@ class BooksApp extends Component {
     })
   }
 
+  handleBookChange = (book, newCategory) => {
+    const listOfBooks = this.state.listOfBooks
+    book.shelf = newCategory
+    BooksAPI.update(book, newCategory).then((response) => {
+      const newListOfBooks = listOfBooks.filter(b => b.id !== book.id)
+      if (newCategory !== 'none') {
+        newListOfBooks.push(book)
+      }
+      this.setState({listOfBooks: newListOfBooks})
+    })
+  }
+
   componentDidMount() {
     BooksAPI.getAll().then((result) => {
-      console.log(result)
-      this.getPersistedBooks(result)
+      this.setState({listOfBooks: result})
     });
   }
 
@@ -64,10 +64,10 @@ class BooksApp extends Component {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
-          <MyReads handleCategoryChange={this.handleCategoryChange} {...this.state}/>
+          <MyReads handleCategoryChange={this.handleBookChange} {...this.state}/>
         )}/>
         <Route exact path='/search' render={() => (
-          <Search handleCategoryChange={this.handleCategoryChange}/>
+          <Search handleCategoryChange={this.handleBookChange}/>
         )}/>
       </div>
     )
