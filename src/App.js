@@ -7,7 +7,7 @@ import Search from './components/Search'
 
 class BooksApp extends Component {
   state = {
-    categories: [
+    shelves: [
       {
         id: 'currentlyReading',
         name: 'Currently Reading'
@@ -24,12 +24,12 @@ class BooksApp extends Component {
     listOfBooks: []
   }
 
-  handleBookChange = (book, newCategory) => {
+  handleShelfChange = (book, newShelf) => {
     const listOfBooks = this.state.listOfBooks
-    book.shelf = newCategory
-    BooksAPI.update(book, newCategory).then(() => {
+    book.shelf = newShelf
+    BooksAPI.update(book, newShelf).then(() => {
       const newListOfBooks = listOfBooks.filter(b => b.id !== book.id)
-      if (newCategory !== 'none') {
+      if (newShelf !== 'none') {
         newListOfBooks.push(book)
       }
       this.setState({listOfBooks: newListOfBooks})
@@ -47,12 +47,12 @@ class BooksApp extends Component {
       <div className="app">
         <Route exact path='/' render={() => (
           <MyReads
-            handleCategoryChange={this.handleBookChange}
+            handleShelfChange={this.handleShelfChange}
             {...this.state}/>
         )}/>
         <Route exact path='/search' render={() => (
           <Search
-            handleCategoryChange={this.handleBookChange}
+            handleShelfChange={this.handleShelfChange}
             listOfBooks={this.state.listOfBooks}/>
         )}/>
       </div>

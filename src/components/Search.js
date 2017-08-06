@@ -15,7 +15,6 @@ export default class Search extends Component {
 
     if (query) {
       search(query, 20).then((result) => {
-        console.log(result)
         if (!result.error) {
           const currentQuery = this.state.query
           //  If current query on the input is different from the one that
@@ -44,7 +43,7 @@ export default class Search extends Component {
   }
 
   render() {
-    const { handleCategoryChange } = this.props
+    const { handleShelfChange } = this.props
     const { query, list } = this.state
 
     return (
@@ -68,7 +67,7 @@ export default class Search extends Component {
               <Book
                 key={book.id}
                 book={book}
-                handleCategoryChange={handleCategoryChange}
+                handleShelfChange={handleShelfChange}
               />
             ))}
           </ol>

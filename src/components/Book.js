@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 
 export default class Book extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      selectValue: props.book.shelf
-    }
+
+  state = {
+    selectValue: this.props.book.shelf
   }
 
-  handleOnchange(book, newValue) {
-    const { handleCategoryChange } = this.props
+  handleOnChange(book, newValue) {
+    const { handleShelfChange } = this.props
     const displayValue = newValue === 'none' ? 'noneDisabled' : newValue
-    
+
     this.setState({selectValue: displayValue})
-    handleCategoryChange(book,newValue)
+    handleShelfChange(book,newValue)
   }
 
   render() {
@@ -24,7 +22,7 @@ export default class Book extends Component {
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book && book.imageLinks && book.imageLinks.thumbnail}")` }}></div>
             <div className="book-shelf-changer">
-              <select value={this.state.selectValue} onChange={(event) => this.handleOnchange(book,event.target.value)}>
+              <select value={this.state.selectValue} onChange={(event) => this.handleOnChange(book,event.target.value)}>
                 <option value="noneDisabled" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
