@@ -24,28 +24,10 @@ class BooksApp extends Component {
     listOfBooks: []
   }
 
-
-  handleCategoryChange = (book, newCategory) => {
-    const categories = this.state.categories
-    book.shelf = newCategory
-    BooksAPI.update(book, newCategory).then((response) => {
-      console.log(response)
-      const newCategories = categories.map(category => {
-        category.list = category.list.filter((b)=> b.shelf === category.id)
-        if(category.id === newCategory) {
-          category.list = category.list.concat([book])
-        }
-        return category
-      })
-
-      this.setState({categories: newCategories})
-    })
-  }
-
   handleBookChange = (book, newCategory) => {
     const listOfBooks = this.state.listOfBooks
     book.shelf = newCategory
-    BooksAPI.update(book, newCategory).then((response) => {
+    BooksAPI.update(book, newCategory).then(() => {
       const newListOfBooks = listOfBooks.filter(b => b.id !== book.id)
       if (newCategory !== 'none') {
         newListOfBooks.push(book)
@@ -64,10 +46,14 @@ class BooksApp extends Component {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
-          <MyReads handleCategoryChange={this.handleBookChange} {...this.state}/>
+          <MyReads
+            handleCategoryChange={this.handleBookChange}
+            {...this.state}/>
         )}/>
         <Route exact path='/search' render={() => (
-          <Search handleCategoryChange={this.handleBookChange}/>
+          <Search
+            handleCategoryChange={this.handleBookChange}
+            listOfBooks={this.state.listOfBooks}/>
         )}/>
       </div>
     )
