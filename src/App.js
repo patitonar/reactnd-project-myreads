@@ -10,23 +10,23 @@ class BooksApp extends Component {
   state = {
     shelves: shelves,
     listOfBooks: []
-  }
+  };
 
   handleShelfChange = (book, newShelf) => {
-    const listOfBooks = this.state.listOfBooks
-    book.shelf = newShelf
+    const listOfBooks = this.state.listOfBooks;
+    book.shelf = newShelf;
     BooksAPI.update(book, newShelf).then(() => {
-      const newListOfBooks = listOfBooks.filter(b => b.id !== book.id)
+      const newListOfBooks = listOfBooks.filter(b => b.id !== book.id);
       if (newShelf !== NONE_VALUE) {
-        newListOfBooks.push(book)
+        newListOfBooks.push(book);
       }
-      this.setState({listOfBooks: newListOfBooks})
+      this.setState({listOfBooks: newListOfBooks});
     })
-  }
+  };
 
   componentDidMount() {
     BooksAPI.getAll().then((result) => {
-      this.setState({listOfBooks: result})
+      this.setState({listOfBooks: result});
     });
   }
 

@@ -10,48 +10,48 @@ export default class Search extends Component {
   static propTypes = {
     listOfBooks: PropTypes.array.isRequired,
     handleShelfChange: PropTypes.func.isRequired
-  }
+  };
 
   state = {
     query: '',
     list: []
-  }
+  };
 
   updateQuery = (query) => {
-    this.setState({ query: query })
+    this.setState({ query: query });
 
     if (query) {
       search(query, 20).then((result) => {
         if (!result.error) {
-          const currentQuery = this.state.query
+          const currentQuery = this.state.query;
           //  If current query on the input is different from the one that
           //  triggered the search, then another search was performed and
           //  the state shouldn't be updated with an older search result
           if(query === currentQuery) {
-            const { listOfBooks } = this.props
+            const { listOfBooks } = this.props;
             const list = result.map((book) => {
-              const ArrayBook = listOfBooks.filter(b => b.id === book.id)
+              const ArrayBook = listOfBooks.filter(b => b.id === book.id);
               if(ArrayBook.length > 0) {
-                book.shelf = ArrayBook[0].shelf
+                book.shelf = ArrayBook[0].shelf;
               } else {
-                book.shelf = NONE_DISABLED
+                book.shelf = NONE_DISABLED;
               }
-              return book
-            })
-            this.setState({ list })
+              return book;
+            });
+            this.setState({ list });
           }
         } else {
-          this.setState({ list: []})
+          this.setState({ list: []});
         }
       })
     } else {
       this.setState({ list: []})
     }
-  }
+  };
 
   render() {
-    const { handleShelfChange } = this.props
-    const { query, list } = this.state
+    const { handleShelfChange } = this.props;
+    const { query, list } = this.state;
 
     return (
       <div className="search-books">

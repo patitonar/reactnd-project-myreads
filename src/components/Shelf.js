@@ -8,10 +8,10 @@ export default class Shelf extends Component {
     name: PropTypes.string.isRequired,
     list: PropTypes.array.isRequired,
     handleShelfChange: PropTypes.func.isRequired
-  }
+  };
 
   render() {
-    const { name, list, handleShelfChange } = this.props
+    const { name, list, handleShelfChange } = this.props;
     return (
       <div className="list-books-content">
         <div>

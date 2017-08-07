@@ -1,6 +1,6 @@
-export const NONE_VALUE = 'none'
+export const NONE_VALUE = 'none';
 
-export const NONE_DISABLED = 'noneDisabled'
+export const NONE_DISABLED = 'noneDisabled';
 
 export const shelves = [
   {
@@ -15,7 +15,7 @@ export const shelves = [
     id: 'read',
     name: 'Read'
   }
-]
+];
 
 export const bookOptions = [
   {
@@ -27,5 +27,5 @@ export const bookOptions = [
     id: NONE_VALUE,
     name: 'None'
   }
-]
+];
 

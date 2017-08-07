@@ -7,22 +7,22 @@ export default class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     handleShelfChange: PropTypes.func.isRequired
-  }
+  };
 
   state = {
     selectValue: this.props.book.shelf
-  }
+  };
 
   handleOnChange(book, newValue) {
-    const { handleShelfChange } = this.props
-    const displayValue = newValue === NONE_VALUE ? NONE_DISABLED : newValue
+    const { handleShelfChange } = this.props;
+    const displayValue = newValue === NONE_VALUE ? NONE_DISABLED : newValue;
 
-    this.setState({selectValue: displayValue})
-    handleShelfChange(book,newValue)
+    this.setState({selectValue: displayValue});
+    handleShelfChange(book,newValue);
   }
 
   render() {
-    const { book } = this.props
+    const { book } = this.props;
     return (
       <li>
         <div className="book">

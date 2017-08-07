@@ -8,15 +8,15 @@ export default class MyReads extends Component {
   static propTypes = {
     shelves: PropTypes.array.isRequired,
     handleShelfChange: PropTypes.func.isRequired
-  }
+  };
 
   filterShelf = (shelfId) => {
-    const { listOfBooks } = this.props
-    return listOfBooks.filter(book => book.shelf === shelfId)
-  }
+    const { listOfBooks } = this.props;
+    return listOfBooks.filter(book => book.shelf === shelfId);
+  };
 
   render() {
-    const { shelves, handleShelfChange } = this.props
+    const { shelves, handleShelfChange } = this.props;
 
     return (
       <div className="list-books">
